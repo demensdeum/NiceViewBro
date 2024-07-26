@@ -2,32 +2,37 @@ import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import useOrientation from '@/hooks/useOrientation';
 
-import muiLogo from './logos/mui.svg';
-import pwaLogo from './logos/pwa.svg';
-import reactLogo from './logos/react_ed.svg';
-import recoilLogo from './logos/recoil.svg';
-import rrLogo from './logos/rr.svg';
-import tsLogo from './logos/ts.svg';
-import viteLogo from './logos/vite.svg';
-import { Image } from './styled';
+import useEmblaCarousel from 'embla-carousel-react';
 
 function Welcome() {
   const isPortrait = useOrientation();
 
-  const width = isPortrait ? '40%' : '30%';
-  const height = isPortrait ? '30%' : '40%';
+  const [emblaRef] = useEmblaCarousel();
+
+  const css = `
+    .embla {  overflow: hidden; width: 100%; height: 100% }
+    .embla__container {  display: flex;}
+    .embla__slide {  flex: 0 0 100%;  min-width: 0;}  
+  `;
 
   return (
     <>
       <Meta title="Welcome" />
       <FullSizeCenteredFlexBox flexDirection={isPortrait ? 'column' : 'row'}>
-        <Image alt="react-router" src={rrLogo} />
-        <Image alt="vite" src={viteLogo} />
-        <Image alt="typescript" src={tsLogo} />
-        <Image alt="react" src={reactLogo} sx={{ width, height }} />
-        <Image alt="mui" src={muiLogo} />
-        <Image alt="recoil" src={recoilLogo} />
-        <Image alt="pwa" src={pwaLogo} />
+        <style>{css}</style>
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container">
+            <div className="embla__slide">
+              <img src="images/slide1.jpg" />
+            </div>
+            <div className="embla__slide">
+              <img src="images/slide2.jpg" />
+            </div>
+            <div className="embla__slide">
+              <img src="images/slide3.jpg" />
+            </div>
+          </div>
+        </div>
       </FullSizeCenteredFlexBox>
     </>
   );
